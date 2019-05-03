@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration status="WARN">
+
+    <Properties>
+        <Property name="logFormat">%d %-5p - %m%n</Property>
+        <Property name="logFormatWithThread">%d %-5p, %t - %m%n</Property>
+        <Property name="infoFileName">/home/y/SimpleLogger/Info.log</Property>
+        <Property name="infoArchive">/home/y/SimpleLogger/Info-%d{yyyyMMdd}-%i.log</Property>
+        <Property name="warnFileName">/home/y/SimpleLogger/Warn.log</Property>
+        <Property name="warnArchive">/home/y/SimpleLogger/Warn-%d{yyyyMMdd}-%i.log</Property>
+        <Property name="errorFileName">/home/y/SimpleLogger/Error.log</Property>
+        <Property name="errorArchive">/home/y/SimpleLogger/Error-%d{yyyyMMdd}-%i.log</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="InfoLogAppender"
+                     append="true"
+                     fileName="${infoFileName}"
+                     filePattern="${infoArchive}">
+            <PatternLayout pattern="${logFormat}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1KB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="max" min="1" max="10"/>
+        </RollingFile>
+        <RollingFile name="WarnLogAppender"
+                     append="true"
+                     fileName="${warnFileName}"
+                     filePattern="${warnArchive}">
+            <PatternLayout pattern="${logFormat}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1KB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="max" min="1" max="10"/>
+        </RollingFile>
+        <RollingFile name="ErrorLogAppender"
+                     append="true"
+                     fileName="${errorFileName}"
+                     filePattern="${errorArchive}">
+            <PatternLayout pattern="${logFormat}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1KB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="max" min="1" max="10"/>
+        </RollingFile>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logFormat}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="InfoLog" level="info">
+            <AppenderRef ref="InfoLogAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <Logger name="WarnLog" level="warn">
+            <AppenderRef ref="WarnLogAppender"/>
+        </Logger>
+        <Logger name="ErrorLog" level="error">
+            <AppenderRef ref="ErrorLogAppender"/>
+        </Logger>
+        <Root>
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
